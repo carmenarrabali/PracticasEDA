@@ -1,0 +1,6 @@
+Tree: ((A,C),(T,G));
+Parsimony Score 3
+Tree: ((A,C),((T,A),G));
+Parsimony Score 3
+Tree: ((A,C),((T,A),(A,G)));
+Parsimony Score 3

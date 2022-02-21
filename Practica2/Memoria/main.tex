@@ -1,0 +1,234 @@
+%CONFIGURACIÓN DEL DOCUMENTO Y HOJA
+
+\documentclass[11pt,letterpaper]{article}
+\setlength{\parindent}{0em}                  %DISTANCIA SANGRÍA
+\setlength{\parskip}{0.5em}                  %DISTANCIA ENTRE PÁRRAFOS
+\textwidth 6.5in
+\textheight 9.in
+\oddsidemargin 0in
+\headheight 0in
+
+%PAQUETES DEL TEMPLATE
+
+\usepackage{fancybox}
+\usepackage[utf8]{inputenc}
+\usepackage{epsfig,graphicx}
+\usepackage{multicol,pst-plot}
+\usepackage{pstricks}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{eucal}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{txfonts}
+\usepackage[spanish]{babel}
+\usepackage[colorlinks]{hyperref}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{upgreek}
+\usepackage{gensymb}
+\usepackage{subfigure}
+\usepackage{siunitx}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{mdframed}
+\usepackage[
+backend=bibtex,
+style=ieee,
+sorting=none
+]{biblatex}
+\addbibresource{biblio.bib}
+\usepackage{multicol}
+
+%DEFINICIÓN DE COLORES EXTRAS
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+\hypersetup{colorlinks=true,linkcolor=codegreen,citecolor=blue,filecolor=blue,urlcolor=magenta,}
+
+%CONFIGURACIÓN DE LSTLISTINGS PARA CÓDIGOS
+
+\lstset{ %
+language=python,                % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,                   % adds a frame around the code
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+escapeinside={\%*}{*)}          % if you want to add a comment within your code
+}
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},
+	commentstyle=\color{red},
+	keywordstyle=\bfseries\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codegreen},
+	basicstyle=\footnotesize\ttfamily,
+	identifierstyle=\color{blue},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+%CONFIGURACIÓN DE MINTED PARA CÓDIGOS
+
+\usemintedstyle{vs}
+
+%DEFINICIÓN DE COMANDOS EXTRAS
+
+\pagestyle{empty}
+\newcommand{\units}[1]{\left[ #1 \right]}          %CORCHETES PARA UNIDADES
+\newcommand{\abs}[1]{\left|#1\right|}              %OPERADOR VALOR ABSOLUTO INTEGRALES
+
+%COMIENZA EL DOCUMENTO
+
+\begin{document}
+
+%CONFIGURACIÓN DEL ENCABEZADO
+
+\usetikzlibrary{positioning}
+\tikzset{every picture/.style={line width=0.75pt}}
+\pagestyle{plain}
+\begin{flushleft}
+Ingeniería de la Salud \hfill Bioinformática\\
+Escuela Técnica Superior de Ingeniería Informática\\
+\underline{Universidad de Málaga}
+\end{flushleft}
+
+\begin{flushright}\vspace{-5mm}
+\includegraphics[height=1.5cm]{escudo.jpg}
+\end{flushright}
+
+\begin{center}\vspace{-1cm}
+\textbf{\large Informe Práctica 2. Árbol filogenético y mínima parsimonia.}\\   %TITULO
+Arrabalí Cañete, Carmen Lucía\\                         %NOMBRE
+\end{center}
+\rule{\linewidth}{0.1mm}
+
+%DESDE AQUÍ SE ESCRIBE TODO EL CONTENIDO
+
+\section{Introducción}
+
+Esta práctica consiste en calcular la mínima parsimonia con la que se permite estimar una hipótesis con el menor número de cambios evolutivos según un árbol binario filogenético, el cual es una forma de representar las relaciones evoltivas de diferentes especies.
+
+
+\section{Implementación}
+
+Para la implementación de este algoritmo se propone crear dos funciones. Una de ellas \textit{computeParsimonyScore} que recibe un árbol filogenético y devuelve el valor de la parsimonia, el cual se calcula haciendo uso de una función auxiliar llamada \textit{computeScoreRec}, que dado un árbol filogenético, calcula de forma recursiva la matriz de puntuación s del nodo raíz. 
+
+Adicionalmente a esos dos métodos, se ha de crear la interfaz \textit{BinaryTree$<$E$>$} que crea el elemento raíz, el subárbol izquierdo y el subárbol derecho y, también, comprueba si el árbol inicial está vacío. 
+
+En el proyecto también se incluye la Clase \textit{PhylogeneticTree} que se encarga de tener todas las características de los árboles filogenéticos.
+
+\subsection{Variables necesarias para la implementación de las funciones}
+
+\begin{lstlisting}[language=Java]
+	public static char alphabet[] = {'A','C', 'G', 'T'};
+	public static int delta[][] = {{0, 1, 1, 1}, {1, 0, 1, 1}, {1, 1, 0, 1}, {1, 1, 1, 0}};
+	public static int m = 0;
+	public static char label[] = new char[m];
+\end{lstlisting}	
+
+Donde:
+\begin{itemize}
+	\item \textit{alphabet$[]$} incluye las letras necesarias de los nucleótidos que componen nuestro organismo
+	\item \textit{delta$[][]$} es una matriz de tamaño $ n x n $ que almacena el coste de cambiar un nucleótido por otro. Se tomará como coste 0 si no se cambian los nucleótidos y de coste 1 si se cambia.
+	\item \textit{m} será la longitud de la etiqueta que lleve cada nodo con la información correspondiente, la cual se pasa a Char en la siguiente línea.
+\end{itemize}
+
+
+\subsection{Función \textit{computeParsimonyScore}}
+
+\begin{lstlisting}[language=Java]
+	public static int computeParsimonyScore(PhylogeneticTree t) {
+		int parsimony = 0;
+		int min = 0;
+		int s [][] = computeScoreRec(t);
+		for(int i = 0; i <= m-1; i++) {
+			min = s[i][0];
+			for(int j = 1; j <= alphabet.length-1; j++) {
+				if(s[i][j] < min) {
+					min = s[i][j];
+				}
+			} parsimony += min;
+		}
+		return parsimony;
+	}
+\end{lstlisting}
+
+Donde se tiene que en un principio tanto la parsimonia como el valor mínimo son cero y, además, una matriz \textit{s} vacía que llama al método auxiliar \textit{computeScoreRec}. Se recorre la matriz con un bulce \textit{for} con la condición de que la variable \textit{i} sea menor o igual que la etiqueta menos uno que, en el caso de cumplir las condiciones, el mínimo ahora sería la matriz $ min = s[i][0]$.
+
+Después, dentro de ese bucle \textit{for}, hay otro bucle \textit{for} que se encarga de recorrer la misma matriz de nuevo, pero esta vez, la condición es que sea menor o igual que la longitud total del alfabeto menos uno, que daría como resultado la matriz $ min = s[i][j]$ en el caso de que $s[i][j]$ sea menor que el mínimo anterior. La variable \textit{j} se inicializa en 1 mientras que la \textit{i} se inicializa en 0.
+
+Se actualiza el valor de la parsimonia añadiéndole el mínimo y se devuelve valor de la misma.
+
+\subsection{Función \textit{computeScoreRec}}
+\begin{lstlisting}[language=Java]
+	public static int[][] computeScoreRec(PhylogeneticTree t) {
+		int s [][] = new int[m][alphabet.length];
+		
+		if(t.isLeaf()) {
+			label = t.root().toCharArray();
+			for(int i = 0; i <= m-1; i++) {
+				for(int j = 0; j <= alphabet.length-1; j++) {
+					if(label[i] == alphabet[j]) {
+						s[i][j] = 0; //No cambia el nucleotido
+					} else {
+						s[i][j] = Integer.MAX_VALUE - 1; // si se cambia el nucleotido
+					}
+				}
+			}
+		} else{
+			int sl [][] = computeScoreRec(t.left());
+			int sr [][] = computeScoreRec(t.right());
+			for(int i = 0; i <= m-1; i++) {
+				for(int j = 0; j <= alphabet.length-1; j++) {
+					int minLeft = Integer.MAX_VALUE - 1;
+					int minRight = Integer.MAX_VALUE - 1;
+					for(int k = 0; k <= alphabet.length - 1; k++) {
+						if(sl[i][k] + delta[j][k] < minLeft) {
+							minLeft = sl[i][k] + delta[j][k];
+						}
+						if(sr[i][k] + delta[j][k] < minRight) {
+							minRight = sr[i][k] + delta[j][k];
+						}
+					}
+					s[i][j] = minLeft + minRight;
+				}
+			}
+		}
+		return s;
+	}
+\end{lstlisting}
+
+Esta es una función auxiliar que se encarga de calcular, de manera recursiva y dado un árbol filogenético, la matriz de puntuación \textit{s} del nodo raíz.
+
+Lo primero que comprueba es si es un nodo hoja o no, en el caso de que si lo sea, la etiqueta se asocia al nodo raíz y luego va iterando por la matriz hasta \textit{m-1} y hasta \textit{alphabet.length-1} que en el caso de que la posición \textit{i} de la etiqueta sea igual que la posición \textit{j} del alfabeto, el elemento de \textit{s} en las posiciones \textit{i} y \textit{j} no cambia su nucleótido, en cambio, si no es igual en posición, si que cambia y el elemento seleccionado sería infinito, definido en el lenguaje como Integer.MAX$ _ $VALUE-1.
+
+Por otro lado, en el caso de que no sea hoja, por lo tanto es nodo interno, comprueba si hay mínimos.
+
+Devuelve en todos los casos la matriz de puntuación del nodo raíz.
+
+\end{document}

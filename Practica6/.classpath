@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="backtracking1.6.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/carme/Mi%20unidad/Documentos/Universidad/Ingeniería%20de%20la%20salud%20UMA/2º%20AÑO/1º%20cuatrimestre/Estructura%20de%20datos%20y%20algortimos/CURSO%202122/Practica6/backtracking1.6-doc.jar!/doc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

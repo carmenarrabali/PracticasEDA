@@ -1,0 +1,12 @@
+Una molécula de ARN está formada por una secuencia de nucleótidos: adenina (A), guanina (G), citosina (C) y uracilo (U). Los enlaces de hidrógeno entre nucleótidos consecutivos constituyen la estructura primaria.
+El emparejamiento entre bases no adyacentes da lugar a elementos estructurales (protuberancias, tallos, bucles internos, bucles de horquilla, ...). 
+Estos emparejamientos de bases constituyen la estructura secundaria.
+La estructura secundaria proporciona el andamiaje para la disposición en 3D de los nucleótidos en la molécula. Este plegado en 3D produce la estructura terciaria.
+Nos centramos en la predicción de la estructura secundaria dada la secuencia de nucleótidos de la molécula de ARN (es decir, su estructura primaria).
+
+La estabilidad de la molécula está relacionada con el número de pares en la estructura secundaria.
+
+
+Dada una molécula de ARN S = s1s2 . .sn (donde cada nucleótido si ∈ {A, C, G, U}, para 1 ⩽ i ⩽ n), encuentre un conjunto de pares de bases compatibles P ⊂ {(i, j) | 1 ⩽ i < j ⩽ n} de cardinalidad máxima, respetando cualquier restricción estructural que pueda existir.
+
+M(i,j) = max(M(i,j-1), max (M(i, k-1) + M(k+1,j-1) + 1 | i <= k < j-minloopSize, s_k and s_j are complementary)) if j > i+minloopSize

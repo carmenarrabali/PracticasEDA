@@ -1,0 +1,27 @@
+Los genes son secuencias de nucleótidos que codifican la síntesis de material bioquímico (ya sea ARN o proteínas).
+
+Los procesos biológicos pueden dar lugar a mutaciones en el genoma. Algunas mutaciones son locales y afectan a un solo nucleótido (sustituciones inserciones, supresiones) mientras que otras pueden ser no locales y afectar a largos tramos de la secuencia (inversiones, transposiciones, translocaciones).
+
+Las mutaciones no locales son raras, pero se acumulan a lo largo de la evolutiva. Por lo tanto, son un buen indicador de la distancia evolutiva distancia evolutiva entre especies.
+
+Planteamiento del problema
+El genoma como permutación
+
+Dejemos que el orden de los genes en un organismo se represente como una permutación (con signo) π = [π1π2 . . . πn]:
+
+Si la orientación de los genes no es importante, cada πi ∈ {1, . . . , n} es un número entero positivo no repetido.
+
+Si la orientación del gen es importante, cada πi puede ser positivo o negativo, y |πi| ∈ {1, . . . . n} es un número entero positivo no repetido positivo no repetido.
+
+Inversión
+Una inversión ρ(i, j) es una operación que afecta a la porción del genoma entre las posiciones i y j (ambas inclusive), invirtiendo este segmento.
+
+Si π tiene signo, el signo de cada πk , i <= k <= j, se invierte también.
+
+Distancia mínima de inversión
+Sean π y π' dos organismos. La distancia de inversión entre ellos es el número mínimo de inversiones necesarias para transformar una de las permutaciones en la otra.
+Podemos suponer, por ejemplo, que una de las permutaciones, digamos π', es la permutación identidad positiva, es decir, π'i = i, 1 <= i <= n.
+
+Clasificación de las permutaciones por medio de las inversiones:
+Dada una permutación (con signo) π, encontrar la secuencia más corta de de inversiones necesarias para transformarla en la permutación de identidad positiva identidad positiva.
+
